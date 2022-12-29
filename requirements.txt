@@ -1,0 +1,7 @@
+jupyterlab
+streamlit
+numpy
+pandas
+altair
+scikit-learn
+watchdog
