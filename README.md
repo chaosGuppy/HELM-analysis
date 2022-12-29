@@ -41,15 +41,15 @@ Make a PR with your changes, and tag Lawrence (chaosGuppy).
 The dashboard is built using [streamlit](https://docs.streamlit.io/).
 Formatting should be [black](https://github.com/psf/black).
 
-## Overview of code
+## Overview of the Code
 
-load.py contains functions for reading in data.
+`load.py` contains functions for reading in data.
 
-accuracy.py contains functions for calculating correctness of model responses
+`accuracy.py` contains functions for calculating correctness of model responses
 (for example, parsing MATH responses to grab the answer) and for computing accuracy across trials and models.
 
-difficulty.py contains functions for calculating trial difficulty, and for transforming arrays of difficulties (e.g. into quantile form)
+`difficulty.py` contains functions for calculating trial difficulty, and for transforming arrays of difficulties (e.g. into quantile form)
 
-agent_characteristic.py contains functions for creating agent characteristic curves
+`agent_characteristic.py` contains functions for creating agent characteristic curves
 
-dashboard.py is the dashboard.
+`dashboard.py` is the dashboard.
