@@ -28,9 +28,9 @@ def render_dashboard():
 
     st.multiselect("Models", options=tasks[task]["models"], key="models")
 
-    instance_accuracy_per_model = get_accuracy_per_model_with_cache(task)
+    accuracy_per_model = get_accuracy_per_model_with_cache(task)
 
-    model_accuracy_per_trial = get_accuracy_per_trial(instance_accuracy_per_model)
+    accuracy_per_trial = get_accuracy_per_trial(accuracy_per_model)
 
     st.selectbox("Plot type", options=["Logistic fit", "Binned"], key="plot_type")
 
@@ -42,7 +42,7 @@ def render_dashboard():
     )
 
     instance_difficulties = get_difficulty_per_trial(
-        model_accuracy_per_trial, exclude_models=st.session_state["models"]
+        accuracy_per_trial, exclude_models=st.session_state["models"]
     )
 
     if st.session_state["x_axis"] == "Difficulty quantile":
@@ -53,14 +53,15 @@ def render_dashboard():
 
     if st.session_state["plot_type"] == "Logistic fit":
         create_logistic_acc_plot(
-            instance_accuracy_per_model, instance_difficulties, difficulty_column_name
+            accuracy_per_model, instance_difficulties, difficulty_column_name
         )
 
     elif st.session_state["plot_type"] == "Binned":
         create_binned_acc_plot(
-            instance_accuracy_per_model, instance_difficulties, difficulty_column_name
+            accuracy_per_model, instance_difficulties, difficulty_column_name
         )
-    create_auc_plot(instance_accuracy_per_model, instance_difficulties)
+    create_auc_plot(accuracy_per_model, instance_difficulties)
+
 
 def create_auc_plot(
     instance_accuracy_per_model: dict[str, list[dict[str, int]]],
@@ -76,6 +77,7 @@ def create_auc_plot(
         )
     )
     st.altair_chart(chart, use_container_width=True)
+
 
 def get_df_for_auc_plot(
     instance_accuracy_per_model: dict[str, list[dict[str, int]]],

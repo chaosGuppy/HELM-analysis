@@ -21,5 +21,6 @@ def get_logistic_agent_characteristic(
     y_for_acc = clf.predict_proba(np.expand_dims(x_for_acc, 1))[:, 1]
     return x_for_acc, y_for_acc
 
+
 def get_auc(xs, ys):
     return np.trapz(ys, xs) / np.max(xs)

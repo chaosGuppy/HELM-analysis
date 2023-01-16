@@ -1,11 +1,18 @@
+from enum import Enum
 from collections import defaultdict
 import re
 from itertools import permutations
+from typing import Optional
 
 from load import load_model_task_data, load_tasks_data
 
 
-def get_accuracy_per_model(task_name: str):
+class Split(Enum):
+    TEST = "test"
+    VALID = "valid"
+
+
+def get_accuracy_per_model(task_name: str, split: Optional[Split] = None):
     tasks = load_tasks_data()
     task = tasks[task_name]
     instance_accuracy_per_model = {}
@@ -14,7 +21,7 @@ def get_accuracy_per_model(task_name: str):
         instance_accuracy_per_model[
             model_name
         ] = _get_instance_accuracy_for_single_model(
-            model_results["request_states"], task_name
+            model_results["request_states"], task_name, split
         )
 
     return instance_accuracy_per_model
@@ -99,7 +106,9 @@ def _get_expected_and_completion(response: dict):
     return expected, completion
 
 
-def _get_instance_accuracy_for_single_model(model_responses: dict, task_name: str):
+def _get_instance_accuracy_for_single_model(
+    model_responses: dict, task_name: str, split: Optional[Split] = None
+):
     result = []
     if task_name == "synthetic_reasoning_induction":
         correctness_function = _response_is_exact_match_up_to_symbol_permutation
@@ -113,6 +122,8 @@ def _get_instance_accuracy_for_single_model(model_responses: dict, task_name: st
         correctness_function = _response_is_exact_match
     for response in model_responses:
         is_correct, expected, prediction = correctness_function(response)
+        if split is not None and response["instance"]["split"] != split.value:
+            continue
         result.append(
             {
                 "id": f'{response["instance"]["id"]}_{response["train_trial_index"]}',
@@ -123,3 +134,7 @@ def _get_instance_accuracy_for_single_model(model_responses: dict, task_name: st
             }
         )
     return result
+
+
+def normalize_accuracy(accuracy: float, num_options: int):
+    return (accuracy - 1 / num_options) * num_options

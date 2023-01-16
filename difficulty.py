@@ -1,10 +1,16 @@
 from statistics import mean
+from typing import Optional
 
 import numpy as np
 
+from accuracy import normalize_accuracy
 
 
-def get_difficulty_per_trial(accuracy_per_instance: dict, exclude_models=None):
+def get_difficulty_per_trial(
+    accuracy_per_instance: dict,
+    exclude_models: Optional[list[str]] = None,
+    num_options: Optional[int] = None,
+):
     if exclude_models is None:
         exclude_models = set()
     result = {}
@@ -14,11 +20,12 @@ def get_difficulty_per_trial(accuracy_per_instance: dict, exclude_models=None):
             for instance_result in instance_results
             if instance_result["model"] not in exclude_models
         ]
-        result[instance_id] = 1 - mean(
-            result["is_correct"] for result in filtered_results
-        )
+        accuracy = mean(result["is_correct"] for result in filtered_results)
+        if num_options is not None:
+            accuracy = normalize_accuracy(accuracy, num_options)
+        difficulty = 1 - accuracy
+        result[instance_id] = difficulty
     return result
-
 
 
 def quantize_difficulties(instance_difficulties: dict[str, float], num_bins: int = 6):

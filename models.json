@@ -1,0 +1,16 @@
+{
+  "openai_ada": 0.35e9,
+  "openai_babbage": 1.3e9,
+  "openai_curie": 6.7e9,
+  "openai_davinci": 175e9,
+  "ai21_j1-jumbo": 178e9,
+  "ai21_j1-large": 7.5e9,
+  "together_bloom": 176e9,
+  "together_gpt-j-6b": 6e9,
+  "together_gpt-neox-20b": 20e9,
+  "together_opt-175b": 175e9,
+  "together_opt-66b": 66e9,
+  "microsoft_TNLGv2_530B": 530e9,
+  "microsoft_TNLGv2_7B": 7e9,
+  "together_yalm": 100e9
+}

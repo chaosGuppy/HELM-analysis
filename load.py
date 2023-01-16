@@ -12,4 +12,3 @@ def load_tasks_data():
     data_dir = os.environ["HELM_DATA_DIR"]
     with open(os.path.join(data_dir, "tasks.json")) as f:
         return json.load(f)
-

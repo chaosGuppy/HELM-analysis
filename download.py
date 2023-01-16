@@ -47,6 +47,7 @@ TASKS = {
         "url_param": "synthetic_reasoning:mode=pattern_match,",
         "models": DEFAULT_MODELS,
         "url_extras": DEFAULT_URL_EXTRAS,
+        "num_options": 4,
     },
     "synthetic_reasoning_variable_substitution": {
         "url_param": "synthetic_reasoning:mode=variable_substitution,",
@@ -112,51 +113,142 @@ TASKS = {
         "url_param": "lsat_qa:task=all,method=multiple_choice_joint,",
         "models": DEFAULT_MODELS,
         "url_extras": DEFAULT_URL_EXTRAS,
+        "num_options": 5,
     },
     "legal_support": {
         "url_param": "legal_support,method=multiple_choice_joint:",
         "models": DEFAULT_MODELS,
         "url_extras": DEFAULT_URL_EXTRAS,
+        "num_options": 2,
     },
     "data_imputation_buy": {
         "url_param": "entity_data_imputation:dataset=Buy,",
-        "models": list(
-            set(DEFAULT_MODELS)
-            - set(["openai_code-davinci-002", "openai_code-cushman-001"])
-        ),
+        "models": [
+            model
+            for model in DEFAULT_MODELS
+            if model not in ["openai_code-davinci-002", "openai_code-cushman-001"]
+        ],
         "url_extras": DEFAULT_URL_EXTRAS,
     },
     "data_imputation_restaurant": {
         "url_param": "entity_data_imputation:dataset=Restaurant,",
-        "models": list(
-            set(DEFAULT_MODELS)
-            - set(["openai_code-davinci-002", "openai_code-cushman-001"])
-        ),
+        "models": [
+            model
+            for model in DEFAULT_MODELS
+            if model not in ["openai_code-davinci-002", "openai_code-cushman-001"]
+        ],
         "url_extras": DEFAULT_URL_EXTRAS,
     },
     "entity_matching_beer": {
         "url_param": "entity_matching:dataset=Beer,",
-        "models": list(
-            set(DEFAULT_MODELS)
-            - set(["openai_code-davinci-002", "openai_code-cushman-001"])
-        ),
+        "models": [
+            model
+            for model in DEFAULT_MODELS
+            if model not in ["openai_code-davinci-002", "openai_code-cushman-001"]
+        ],
         "url_extras": DEFAULT_URL_EXTRAS,
     },
     "entity_matching_abt_buy": {
         "url_param": "entity_matching:dataset=Abt_Buy,",
-        "models": list(
-            set(DEFAULT_MODELS)
-            - set(["openai_code-davinci-002", "openai_code-cushman-001"])
-        ),
+        "models": [
+            model
+            for model in DEFAULT_MODELS
+            if model not in ["openai_code-davinci-002", "openai_code-cushman-001"]
+        ],
         "url_extras": DEFAULT_URL_EXTRAS,
     },
     "entity_matching_dirty_itunes_amazon": {
         "url_param": "entity_matching:dataset=Dirty_iTunes_Amazon,",
-        "models": list(
-            set(DEFAULT_MODELS)
-            - set(["openai_code-davinci-002", "openai_code-cushman-001"])
-        ),
+        "models": [
+            model
+            for model in DEFAULT_MODELS
+            if model not in ["openai_code-davinci-002", "openai_code-cushman-001"]
+        ],
         "url_extras": DEFAULT_URL_EXTRAS,
+    },
+    "mmlu_abstract_algebra": {
+        "url_param": "mmlu:subject=abstract_algebra,method=multiple_choice_joint,",
+        "models": [
+            model
+            for model in DEFAULT_MODELS
+            if model not in ["openai_code-davinci-002", "openai_code-cushman-001"]
+        ],
+        "url_extras": {
+            model: "data_augmentation=canonical"
+            + (f",{DEFAULT_URL_EXTRAS[model]}" if model in DEFAULT_URL_EXTRAS else "")
+            for model in DEFAULT_MODELS
+        },
+        "num_options": 4,
+    },
+    "mmlu_college_chemistry": {
+        "url_param": "mmlu:subject=college_chemistry,method=multiple_choice_joint,",
+        "models": [
+            model
+            for model in DEFAULT_MODELS
+            if model not in ["openai_code-davinci-002", "openai_code-cushman-001"]
+        ],
+        "url_extras": {
+            model: "data_augmentation=canonical"
+            + (f",{DEFAULT_URL_EXTRAS[model]}" if model in DEFAULT_URL_EXTRAS else "")
+            for model in DEFAULT_MODELS
+        },
+        "num_options": 4,
+    },
+    "mmlu_computer_security": {
+        "url_param": "mmlu:subject=computer_security,method=multiple_choice_joint,",
+        "models": [
+            model
+            for model in DEFAULT_MODELS
+            if model not in ["openai_code-davinci-002", "openai_code-cushman-001"]
+        ],
+        "url_extras": {
+            model: "data_augmentation=canonical"
+            + (f",{DEFAULT_URL_EXTRAS[model]}" if model in DEFAULT_URL_EXTRAS else "")
+            for model in DEFAULT_MODELS
+        },
+        "num_options": 4,
+    },
+    "mmlu_econometrics": {
+        "url_param": "mmlu:subject=econometrics,method=multiple_choice_joint,",
+        "models": [
+            model
+            for model in DEFAULT_MODELS
+            if model not in ["openai_code-davinci-002", "openai_code-cushman-001"]
+        ],
+        "url_extras": {
+            model: "data_augmentation=canonical"
+            + (f",{DEFAULT_URL_EXTRAS[model]}" if model in DEFAULT_URL_EXTRAS else "")
+            for model in DEFAULT_MODELS
+        },
+        "num_options": 4,
+    },
+    "mmlu_us_foreign_policy": {
+        "url_param": "mmlu:subject=us_foreign_policy,method=multiple_choice_joint,",
+        "models": [
+            model
+            for model in DEFAULT_MODELS
+            if model not in ["openai_code-davinci-002", "openai_code-cushman-001"]
+        ],
+        "url_extras": {
+            model: "data_augmentation=canonical"
+            + (f",{DEFAULT_URL_EXTRAS[model]}" if model in DEFAULT_URL_EXTRAS else "")
+            for model in DEFAULT_MODELS
+        },
+        "num_options": 4,
+    },
+    "boolq": {
+        "url_param": "boolq:",
+        "models": [
+            model
+            for model in DEFAULT_MODELS
+            if model not in ["openai_code-davinci-002", "openai_code-cushman-001"]
+        ],
+        "url_extras": {
+            model: "data_augmentation=canonical"
+            + (f",{DEFAULT_URL_EXTRAS[model]}" if model in DEFAULT_URL_EXTRAS else "")
+            for model in DEFAULT_MODELS
+        },
+        "num_options": 2,
     },
 }
 
@@ -168,26 +260,32 @@ BASE_URL = (
 )
 
 TASKS_TO_DOWNLOAD = [
-    "synthetic_reasoning_pattern_match",
-    "synthetic_reasoning_variable_substitution",
-    "synthetic_reasoning_induction",
-    "synthetic_reasoning_natural_easy",
-    "synthetic_reasoning_natural_hard",
-    "babi_qa_all",
-    "babi_qa_3",
-    "babi_qa_15",
-    "babi_qa_19",
-    "dyck",
-    "gsm8k",
-    "math",
-    "math_cot",
-    "lsat_qa",
-    "legal_support",
-    "data_imputation_buy",
-    "data_imputation_restaurant",
-    "entity_matching_beer",
-    "entity_matching_abt_buy",
-    "entity_matching_dirty_itunes_amazon",
+    #    "synthetic_reasoning_pattern_match",
+    #    "synthetic_reasoning_variable_substitution",
+    #    "synthetic_reasoning_induction",
+    #    "synthetic_reasoning_natural_easy",
+    #    "synthetic_reasoning_natural_hard",
+    #    "babi_qa_all",
+    #    "babi_qa_3",
+    #    "babi_qa_15",
+    #    "babi_qa_19",
+    #    "dyck",
+    #    "gsm8k",
+    #    "math",
+    #    "math_cot",
+    #    "lsat_qa",
+    #    "legal_support",
+    #    "data_imputation_buy",
+    #    "data_imputation_restaurant",
+    #    "entity_matching_beer",
+    #    "entity_matching_abt_buy",
+    #    "entity_matching_dirty_itunes_amazon",
+    # "mmlu_abstract_algebra",
+    # "mmlu_college_chemistry",
+    # "mmlu_computer_security",
+    # "mmlu_econometrics",
+    # "mmlu_us_foreign_policy",
+    # "boolq",
 ]
 
 
